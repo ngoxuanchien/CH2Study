@@ -11,7 +11,8 @@ import java.lang.annotation.Target;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table()
+@Builder
+@Table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +32,6 @@ public class User {
 
     @Column
     private Role role;
+
+    private State state;
 }
