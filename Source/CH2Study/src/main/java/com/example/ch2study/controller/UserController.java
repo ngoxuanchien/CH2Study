@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CH2StudyUser> getUser(@PathVariable("id") Integer userId) {
+    public ResponseEntity<CH2StudyUser> getUser(@PathVariable("id") Long userId) {
         try {
             CH2StudyUser user = userService.getUser(userId);
             return ResponseEntity.ok(user);
@@ -34,14 +34,14 @@ public class UserController {
     }
 
     @PostMapping
-    public CH2StudyUser addUser(@RequestParam String username,
-                                @RequestParam String password) {
-        return userService.createNewUser(username, password);
+    public CH2StudyUser addUser(@RequestBody CH2StudyUser newUser) {
+        return userService.createNewUser(newUser);
     }
 
     @PutMapping(value="/{id}")
-    public ResponseEntity<CH2StudyUser> updateUser(@PathVariable("id") Integer userId,
-                                   @RequestBody CH2StudyUser newUser
+    public ResponseEntity<CH2StudyUser> updateUser(
+            @PathVariable("id") Long userId,
+            @RequestBody CH2StudyUser newUser
     ) {
         try {
             CH2StudyUser user = userService.updateUser(userId ,newUser);
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @DeleteMapping(value="/{id}")
-    public ResponseEntity<CH2StudyUser> deleteUser(@PathVariable("id") Integer userId) {
+    public ResponseEntity<CH2StudyUser> deleteUser(@PathVariable("id") Long userId) {
         try {
             CH2StudyUser user = userService.deleteUser(userId);
             return ResponseEntity.ok(user);

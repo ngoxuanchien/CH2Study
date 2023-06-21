@@ -1,5 +1,6 @@
 package com.example.ch2study.service;
 
+import com.example.ch2study.exception.UserAlreadyExistsException;
 import com.example.ch2study.model.CH2StudyUser;
 import com.example.ch2study.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +21,16 @@ public class UserService {
         return new ArrayList<>(userRepo.findAll());
     }
 
-    public CH2StudyUser createNewUser(String userName, String password) {
-        CH2StudyUser ch2StudyUser = CH2StudyUser.builder()
-                .firstName(userName)
-                .lastName(userName)
-                .password(password)
-                .email(userName + "@gmail.com")
-                .build();
-
-        userRepo.save(ch2StudyUser);
-        return ch2StudyUser;
+    public CH2StudyUser createNewUser(CH2StudyUser newUser) {
+        if (!userRepo.existsByEmail(newUser.getEmail())) {
+            userRepo.save(newUser);
+            return newUser;
+        } else {
+            throw new UserAlreadyExistsException("Email da ton tai");
+        }
     }
 
-    public CH2StudyUser getUser(Integer userId) {
+    public CH2StudyUser getUser(Long userId) {
         Optional<CH2StudyUser> optionalCH2StudyUser = userRepo.findById(userId);
         if (optionalCH2StudyUser.isPresent()) {
 
@@ -42,7 +40,7 @@ public class UserService {
         }
     }
 
-    public CH2StudyUser updateUser(Integer userId, CH2StudyUser newUser) {
+    public CH2StudyUser updateUser(Long userId, CH2StudyUser newUser) {
         Optional<CH2StudyUser> optionalCH2StudyUser = userRepo.findById(userId);
         if (optionalCH2StudyUser.isPresent()) {
             CH2StudyUser user = optionalCH2StudyUser.get();
@@ -59,7 +57,7 @@ public class UserService {
         }
     }
 
-    public CH2StudyUser deleteUser(Integer userId) {
+    public CH2StudyUser deleteUser(Long userId) {
         Optional<CH2StudyUser> optionalCH2StudyUser = userRepo.findById(userId);
         if (optionalCH2StudyUser.isPresent()) {
             CH2StudyUser user = optionalCH2StudyUser.get();
