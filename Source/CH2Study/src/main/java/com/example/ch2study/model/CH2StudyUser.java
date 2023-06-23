@@ -3,6 +3,8 @@ package com.example.ch2study.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
+
 
 @Data
 @Getter
@@ -23,6 +25,9 @@ public class CH2StudyUser {
     @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false)
+    private Date birthDay;
+
     @Column(unique = true, nullable = false)
     private String email;
 
@@ -30,6 +35,9 @@ public class CH2StudyUser {
     private String password;
 
     @Column
+    private double coin = 0;
+
+    @Column(nullable = false)
     private Role role;
 
     private State state;

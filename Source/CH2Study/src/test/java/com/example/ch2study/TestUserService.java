@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.webjars.NotFoundException;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -33,6 +34,7 @@ public class TestUserService {
                 .builder()
                 .firstName("Thanh")
                 .lastName("Huynh")
+                .birthDay(Date.valueOf("2002-06-25"))
                 .email("huynhthanh@gmail.com")
                 .password("password")
                 .role(Role.STUDENT)
@@ -44,6 +46,7 @@ public class TestUserService {
             assertThat(user.getId()).isNotNull();
             assertThat(user.getFirstName()).isEqualTo(newUser.getFirstName());
             assertThat(user.getLastName()).isEqualTo(newUser.getLastName());
+            assertThat(user.getBirthDay()).isEqualTo(newUser.getBirthDay());
             assertThat(user.getEmail()).isEqualTo(newUser.getEmail());
             assertThat(user.getPassword()).isEqualTo(newUser.getPassword());
             assertThat(user.getRole()).isEqualTo(Role.STUDENT);
@@ -101,19 +104,22 @@ public class TestUserService {
                 .builder()
                 .firstName("Thanh")
                 .lastName("Huynh")
+                .birthDay(Date.valueOf("2002-06-25"))
                 .email("huynhthanh@gmail.com")
                 .password("password")
                 .role(Role.STUDENT)
                 .build();
-
         try {
             CH2StudyUser user = userService.updateUser(id, newUser);
+
             assertThat(user).isNotNull();
             assertThat(user.getFirstName()).isEqualTo(newUser.getFirstName());
             assertThat(user.getLastName()).isEqualTo(newUser.getLastName());
+            assertThat(user.getBirthDay()).isEqualTo(newUser.getBirthDay());
             assertThat(user.getEmail()).isEqualTo(newUser.getEmail());
             assertThat(user.getPassword()).isEqualTo(newUser.getPassword());
             assertThat(user.getRole()).isEqualTo(Role.STUDENT);
+
             System.out.println(user);
         } catch (NotFoundException ex) {
             System.out.println(ex.getMessage());

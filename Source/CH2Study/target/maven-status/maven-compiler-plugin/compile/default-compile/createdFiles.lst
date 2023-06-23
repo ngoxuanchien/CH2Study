@@ -1,0 +1,9 @@
+com\example\ch2study\model\CH2StudyUser$CH2StudyUserBuilder.class
+com\example\ch2study\model\Role.class
+com\example\ch2study\model\CH2StudyUser.class
+com\example\ch2study\Ch2StudyApplication.class
+com\example\ch2study\controller\HomeController.class
+com\example\ch2study\model\State.class
+com\example\ch2study\repository\UserRepo.class
+com\example\ch2study\service\UserService.class
+com\example\ch2study\controller\UserController.class
